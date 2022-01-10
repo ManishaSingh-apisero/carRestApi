@@ -1,0 +1,609 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="implementation-suite.xml" />
+	<munit:test name="getAllCabs-test-success" doc:id="584d8ef3-9f40-485f-bc97-562f169dee3c" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock Request" doc:id="7bb12fcb-e141-4fdc-9653-ccd7be032438" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="21e26c17-54c7-4543-ba49-250b2d8ec037" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://getAllCabstestsuccess\mock_payload.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://getAllCabstestsuccess\mock_attributes.dwl')]" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://getAllCabstestsuccess\mock_variable_.dwl')]" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock Request" doc:id="144dff46-d36a-4aba-8984-add2b1cbede9" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="7e2bb8b9-600f-4489-b798-50a08152e1b7" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://getAllCabstestsuccess\mock_payload1.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://getAllCabstestsuccess\mock_attributes1.dwl')]" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://getAllCabstestsuccess\mock_variable_1.dwl')]" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock Request" doc:id="807937f0-22f7-4460-91df-aec932f61a00" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="d2b259db-9223-4e50-b7e8-8152d3cc8d7e" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://getAllCabstestsuccess\mock_payload2.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://getAllCabstestsuccess\mock_attributes2.dwl')]" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://getAllCabstestsuccess\mock_variable_2.dwl')]" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit:set-event doc:name="Set Input" doc:id="4cd77f20-cc3b-4cc5-afeb-455d15def350" >
+				<munit:payload value="#[readUrl('classpath://getAllCabstestsuccess\set-event_payload.dwl')]" encoding="UTF-8" />
+				<munit:attributes value="#[readUrl('classpath://getAllCabstestsuccess\set-event_attributes.dwl')]" />
+				<munit:variables >
+					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://getAllCabstestsuccess\set-event_variable_.dwl')]" />
+				</munit:variables>
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to getAllCabs" doc:id="eec7bf02-b7ce-443d-bd1e-d5aa9734a9ae" name="getAllCabs"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="686590f8-a05c-43b9-82da-678b1647a618" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import getAllCabstestsuccess::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+			<munit-tools:verify-call doc:name="Verify Transform Message" doc:id="6fd67a22-d487-4189-ba38-893e0192beaf" processor="ee:transform" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="20b574ef-4d76-4f7e-a12d-ca2057341761" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify Logger" doc:id="3246844f-fdbf-4f47-895e-b257fb418efb" processor="logger" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="57aab83d-87be-4b96-b68d-c05d7ec7df90" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="getCarByCarName-test" doc:id="7d92a2a6-eabf-4975-b90d-73574f513463" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock destination" doc:id="9aedd9df-b47f-4101-b0a9-e1dc2b59b8f7" processor="set-variable">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="ebece2ce-30f1-4253-92b3-e04dd0c01122" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://getCarByCarNametest\mock_variable_.dwl')]" />
+						<munit-tools:variable key="carName" value="#[output application/java --- readUrl('classpath://getCarByCarNametest\mock_variable_1.dwl')]" mediaType="application/java" encoding="UTF-8" />
+						<munit-tools:variable key="destination" value="#[output application/java --- readUrl('classpath://getCarByCarNametest\mock_variable_2.dwl')]" mediaType="application/java" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock source" doc:id="504df242-9deb-437e-8c86-426488c6f646" processor="set-variable">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="b86e5541-d668-49d3-8432-ae68bef2c0c3" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://getCarByCarNametest\mock_variable_3.dwl')]" />
+						<munit-tools:variable key="carName" value="#[output application/java --- readUrl('classpath://getCarByCarNametest\mock_variable_4.dwl')]" mediaType="application/java" encoding="UTF-8" />
+						<munit-tools:variable key="source" value="#[output application/java --- readUrl('classpath://getCarByCarNametest\mock_variable_5.dwl')]" mediaType="application/java" encoding="UTF-8" />
+						<munit-tools:variable key="destination" value="#[output application/java --- readUrl('classpath://getCarByCarNametest\mock_variable_6.dwl')]" mediaType="application/java" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock Request" doc:id="61cf1786-9f14-4bde-b14d-777ed1877eb3" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="f500783a-9a8b-4b38-b853-92d814338cd7" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://getCarByCarNametest\mock_payload.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://getCarByCarNametest\mock_attributes.dwl')]" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://getCarByCarNametest\mock_variable_7.dwl')]" />
+						<munit-tools:variable key="carName" value="#[output application/java --- readUrl('classpath://getCarByCarNametest\mock_variable_8.dwl')]" mediaType="application/java" encoding="UTF-8" />
+						<munit-tools:variable key="source" value="#[output application/java --- readUrl('classpath://getCarByCarNametest\mock_variable_9.dwl')]" mediaType="application/java" encoding="UTF-8" />
+						<munit-tools:variable key="destination" value="#[output application/java --- readUrl('classpath://getCarByCarNametest\mock_variable_10.dwl')]" mediaType="application/java" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock carName" doc:id="a15e5c35-4e71-48ed-a098-73aa4e2983db" processor="set-variable">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="652b3a5d-83e3-4aea-997e-89c7bd964a13" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://getCarByCarNametest\mock_variable_11.dwl')]" />
+						<munit-tools:variable key="carName" value="#[output application/java --- readUrl('classpath://getCarByCarNametest\mock_variable_12.dwl')]" mediaType="application/java" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit:set-event doc:name="Set Input" doc:id="79676080-9fee-4c65-a50f-2bd882e960ca" >
+				<munit:payload value="#[readUrl('classpath://getCarByCarNametest\set-event_payload.dwl')]" encoding="UTF-8" />
+				<munit:attributes value="#[readUrl('classpath://getCarByCarNametest\set-event_attributes.dwl')]" />
+				<munit:variables >
+					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://getCarByCarNametest\set-event_variable_.dwl')]" />
+				</munit:variables>
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to getCarByCarName" doc:id="61a7e6ca-58c8-426c-8597-214f5ddea555" name="getCarByCarName"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="00036ca0-0501-4c48-89cd-1f976499d09c" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import getCarByCarNametest::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+			<munit-tools:verify-call doc:name="Verify valid car name" doc:id="6d98f513-b935-4c2a-96b7-efbd58fa3e7d" processor="validation:is-true" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="4722e78b-7651-43c3-88ac-2d694a0b555a" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify destination is not null" doc:id="298a46ad-4953-4f55-bcf8-69d238215164" processor="validation:is-not-null" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="45ad254c-017c-46b2-bae8-dfdc447d7dcd" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify source is not null" doc:id="fb5e784a-3459-4071-a53d-a259df219b1d" processor="validation:is-not-null" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="293f602e-19c4-4e3d-bfa2-c4a696b1c1c1" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify Is valid source" doc:id="728f7420-8e29-4e34-85eb-8e45dd11033f" processor="validation:is-true" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="af5cbe7e-1c5f-4d6b-94ad-cd2121d9523c" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify Is valid destination" doc:id="92a26272-41d3-4b26-bb3c-4ba6d089416a" processor="validation:is-true" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="c22c55ed-c8bd-46b1-b659-10e46cfc69a4" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify Transform Message" doc:id="3f983851-7f37-468b-a88e-9f95d0d977f3" processor="ee:transform" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="b833b4e7-97ea-4b83-8474-6a2ce775b4ee" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify Logger" doc:id="81026a83-7779-4c8c-b8c4-1dcb91a8934b" processor="logger" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="dc3e87cf-8d14-4743-91f7-1b8faf83e146" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify Transform Message" doc:id="aa11dee8-6a0e-45b2-8ec0-40033180ca07" processor="ee:transform" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="58a39400-0446-4c50-8978-bc8f3e4f0578" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="getCarByCarName-test-selfCab" doc:id="e08dd8c2-1377-46a5-971b-ef9c5143406f" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock Request" doc:id="5935b341-1cc5-4c28-aaab-a6e522b20030" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="a858c628-b956-47ed-8e54-7b08e1183a84" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://getCarByCarNametestselfCab\mock_payload.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://getCarByCarNametestselfCab\mock_attributes.dwl')]" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://getCarByCarNametestselfCab\mock_variable_.dwl')]" />
+						<munit-tools:variable key="carName" value="#[output application/java --- readUrl('classpath://getCarByCarNametestselfCab\mock_variable_1.dwl')]" mediaType="application/java" encoding="UTF-8" />
+						<munit-tools:variable key="source" value="#[output application/java --- readUrl('classpath://getCarByCarNametestselfCab\mock_variable_2.dwl')]" mediaType="application/java" encoding="UTF-8" />
+						<munit-tools:variable key="destination" value="#[output application/java --- readUrl('classpath://getCarByCarNametestselfCab\mock_variable_3.dwl')]" mediaType="application/java" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock destination" doc:id="16b551d4-3770-4b86-baed-a278f0364394" processor="set-variable">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="ebece2ce-30f1-4253-92b3-e04dd0c01122" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://getCarByCarNametestselfCab\mock_variable_4.dwl')]" />
+						<munit-tools:variable key="carName" value="#[output application/java --- readUrl('classpath://getCarByCarNametestselfCab\mock_variable_5.dwl')]" mediaType="application/java" encoding="UTF-8" />
+						<munit-tools:variable key="destination" value="#[output application/java --- readUrl('classpath://getCarByCarNametestselfCab\mock_variable_6.dwl')]" mediaType="application/java" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock source" doc:id="ff789a97-3263-4304-abc0-866f7caad52d" processor="set-variable">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="b86e5541-d668-49d3-8432-ae68bef2c0c3" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://getCarByCarNametestselfCab\mock_variable_7.dwl')]" />
+						<munit-tools:variable key="carName" value="#[output application/java --- readUrl('classpath://getCarByCarNametestselfCab\mock_variable_8.dwl')]" mediaType="application/java" encoding="UTF-8" />
+						<munit-tools:variable key="source" value="#[output application/java --- readUrl('classpath://getCarByCarNametestselfCab\mock_variable_9.dwl')]" mediaType="application/java" encoding="UTF-8" />
+						<munit-tools:variable key="destination" value="#[output application/java --- readUrl('classpath://getCarByCarNametestselfCab\mock_variable_10.dwl')]" mediaType="application/java" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock carName" doc:id="29f8874a-946d-4c56-a631-c5d68889d3d9" processor="set-variable">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="652b3a5d-83e3-4aea-997e-89c7bd964a13" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://getCarByCarNametestselfCab\mock_variable_11.dwl')]" />
+						<munit-tools:variable key="carName" value="#[output application/java --- readUrl('classpath://getCarByCarNametestselfCab\mock_variable_12.dwl')]" mediaType="application/java" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit:set-event doc:name="Set Input" doc:id="4dae2073-f3d8-463a-b7ee-8a0a91ca87e0" >
+				<munit:payload value="#[readUrl('classpath://getCarByCarNametestselfCab\set-event_payload.dwl')]" encoding="UTF-8" />
+				<munit:attributes value="#[readUrl('classpath://getCarByCarNametestselfCab\set-event_attributes.dwl')]" />
+				<munit:variables >
+					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://getCarByCarNametestselfCab\set-event_variable_.dwl')]" />
+				</munit:variables>
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to getCarByCarName" doc:id="42d6c5a2-0189-4b1e-8f1e-e584a03809a7" name="getCarByCarName"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="a025c6d6-2410-406c-ad58-6389bc20678e" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import getCarByCarNametestselfCab::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+			<munit-tools:verify-call doc:name="Verify valid car name" doc:id="3ab6ac50-40f9-494c-ab39-a02ab0eb6d8e" processor="validation:is-true" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="4722e78b-7651-43c3-88ac-2d694a0b555a" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify destination is not null" doc:id="70f73f48-6b1c-4f56-b446-c661c6f611ab" processor="validation:is-not-null" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="45ad254c-017c-46b2-bae8-dfdc447d7dcd" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify source is not null" doc:id="a1f6128b-cdd5-4adb-a7d7-134a2dfca77a" processor="validation:is-not-null" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="293f602e-19c4-4e3d-bfa2-c4a696b1c1c1" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify Is valid source" doc:id="134e33fe-9064-45da-9eb8-112ee52ff412" processor="validation:is-true" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="af5cbe7e-1c5f-4d6b-94ad-cd2121d9523c" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify Is valid destination" doc:id="38a33039-1b7e-4308-b7a1-8d12716e6db8" processor="validation:is-true" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="c22c55ed-c8bd-46b1-b659-10e46cfc69a4" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify Transform Message" doc:id="ed9a2163-b5ad-4710-868e-dcae7a8c0dca" processor="ee:transform" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="131bd838-e5e5-4e13-875b-7b9cbc4a080e" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify Transform Message" doc:id="c6237b8a-6240-45e4-8ccf-5da0af18246e" processor="ee:transform" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="b833b4e7-97ea-4b83-8474-6a2ce775b4ee" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify Logger" doc:id="2c046ab8-693d-49dd-b3fc-348533608b0b" processor="logger" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="dc3e87cf-8d14-4743-91f7-1b8faf83e146" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="getCarByCarName-test-youngCab" doc:id="8a023c03-379a-4a12-912e-794705c25ec8" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock Request" doc:id="8037179f-740f-48a8-8db8-2bafad8420b8" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="69727309-490b-483b-98f8-cd880da751ac" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://getCarByCarNametestyoungCab\mock_payload.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://getCarByCarNametestyoungCab\mock_attributes.dwl')]" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://getCarByCarNametestyoungCab\mock_variable_.dwl')]" />
+						<munit-tools:variable key="carName" value="#[output application/java --- readUrl('classpath://getCarByCarNametestyoungCab\mock_variable_1.dwl')]" mediaType="application/java" encoding="UTF-8" />
+						<munit-tools:variable key="source" value="#[output application/java --- readUrl('classpath://getCarByCarNametestyoungCab\mock_variable_2.dwl')]" mediaType="application/java" encoding="UTF-8" />
+						<munit-tools:variable key="destination" value="#[output application/java --- readUrl('classpath://getCarByCarNametestyoungCab\mock_variable_3.dwl')]" mediaType="application/java" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock destination" doc:id="da7a281e-41fa-4b63-84eb-f1ade474eadd" processor="set-variable">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="ebece2ce-30f1-4253-92b3-e04dd0c01122" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://getCarByCarNametestyoungCab\mock_variable_4.dwl')]" />
+						<munit-tools:variable key="carName" value="#[output application/java --- readUrl('classpath://getCarByCarNametestyoungCab\mock_variable_5.dwl')]" mediaType="application/java" encoding="UTF-8" />
+						<munit-tools:variable key="destination" value="#[output application/java --- readUrl('classpath://getCarByCarNametestyoungCab\mock_variable_6.dwl')]" mediaType="application/java" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock source" doc:id="e0e79a41-a58f-4998-99cb-4059c8d2c642" processor="set-variable">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="b86e5541-d668-49d3-8432-ae68bef2c0c3" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://getCarByCarNametestyoungCab\mock_variable_7.dwl')]" />
+						<munit-tools:variable key="carName" value="#[output application/java --- readUrl('classpath://getCarByCarNametestyoungCab\mock_variable_8.dwl')]" mediaType="application/java" encoding="UTF-8" />
+						<munit-tools:variable key="source" value="#[output application/java --- readUrl('classpath://getCarByCarNametestyoungCab\mock_variable_9.dwl')]" mediaType="application/java" encoding="UTF-8" />
+						<munit-tools:variable key="destination" value="#[output application/java --- readUrl('classpath://getCarByCarNametestyoungCab\mock_variable_10.dwl')]" mediaType="application/java" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock carName" doc:id="6e8289a5-91a4-4511-a2a7-8750d751ed58" processor="set-variable">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="652b3a5d-83e3-4aea-997e-89c7bd964a13" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://getCarByCarNametestyoungCab\mock_variable_11.dwl')]" />
+						<munit-tools:variable key="carName" value="#[output application/java --- readUrl('classpath://getCarByCarNametestyoungCab\mock_variable_12.dwl')]" mediaType="application/java" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit:set-event doc:name="Set Input" doc:id="8398b383-90f6-4f3f-9934-efcdcaef95f0" >
+				<munit:payload value="#[readUrl('classpath://getCarByCarNametestyoungCab\set-event_payload.dwl')]" encoding="UTF-8" />
+				<munit:attributes value="#[readUrl('classpath://getCarByCarNametestyoungCab\set-event_attributes.dwl')]" />
+				<munit:variables >
+					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://getCarByCarNametestyoungCab\set-event_variable_.dwl')]" />
+				</munit:variables>
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to getCarByCarName" doc:id="0469d848-6270-4b4b-99a1-d6c08681333f" name="getCarByCarName"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="46ac534a-8659-42d2-8a31-11d800326f77" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import getCarByCarNametestyoungCab::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+			<munit-tools:verify-call doc:name="Verify valid car name" doc:id="0dd2c0d1-ca2d-4b43-af04-b4a61471e104" processor="validation:is-true" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="4722e78b-7651-43c3-88ac-2d694a0b555a" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify destination is not null" doc:id="27930083-72c1-4d04-a0d5-708a0e9b5596" processor="validation:is-not-null" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="45ad254c-017c-46b2-bae8-dfdc447d7dcd" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify Transform Message" doc:id="8ecad12b-24d2-4e4b-833a-e7c1b9a61372" processor="ee:transform" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="6cd088e7-0031-4b10-a1bb-aaa0c4b1fb7f" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify source is not null" doc:id="1f396652-3534-4de2-9834-52ecdedcc226" processor="validation:is-not-null" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="293f602e-19c4-4e3d-bfa2-c4a696b1c1c1" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify Is valid source" doc:id="af08418d-a81b-4a39-a506-431048aea305" processor="validation:is-true" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="af5cbe7e-1c5f-4d6b-94ad-cd2121d9523c" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify Is valid destination" doc:id="134cd6fb-26d7-47b6-879f-670332f0d4b2" processor="validation:is-true" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="c22c55ed-c8bd-46b1-b659-10e46cfc69a4" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify Transform Message" doc:id="b0437d5e-e473-45a8-9956-4e265d2cc06e" processor="ee:transform" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="b833b4e7-97ea-4b83-8474-6a2ce775b4ee" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify Logger" doc:id="1d1fe7f3-ac5b-4509-acad-e52b201396a8" processor="logger" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="dc3e87cf-8d14-4743-91f7-1b8faf83e146" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="bookCab-test-coolCab" doc:id="b80a19f0-3bfe-4b94-ba74-01be0a18e31e" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock Write" doc:id="e50780b2-3323-4df6-b81a-e897aa3775f8" processor="file:write">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="0b60dc7c-9b84-4dac-aee8-54501e820cf6" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://bookCabtestcoolCab\mock_payload.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://bookCabtestcoolCab\mock_attributes.dwl')]" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://bookCabtestcoolCab\mock_variable_.dwl')]" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock Is true" doc:id="ddd56600-f13e-4e1e-b49d-60cd71586711" processor="validation:is-true">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="b6c94a46-aa31-4a85-808a-0329f0504dd6" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://bookCabtestcoolCab\mock_payload1.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://bookCabtestcoolCab\mock_attributes1.dwl')]" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://bookCabtestcoolCab\mock_variable_1.dwl')]" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock Request" doc:id="cd8fbf31-d804-40d4-903a-e67a94f540e4" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="21d8dacb-6c7d-48bc-b216-3f05b2058110" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://bookCabtestcoolCab\mock_payload2.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://bookCabtestcoolCab\mock_attributes2.dwl')]" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://bookCabtestcoolCab\mock_variable_2.dwl')]" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit:set-event doc:name="Set Input" doc:id="ef3377ce-d0d2-4dd0-a35c-ccd3ad9409e1" >
+				<munit:payload value="#[output application/json --- readUrl('classpath://bookCabtestcoolCab\set-event_payload.dwl')]" encoding="UTF-8" mediaType="application/json" />
+				<munit:attributes value="#[readUrl('classpath://bookCabtestcoolCab\set-event_attributes.dwl')]" />
+				<munit:variables >
+					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://bookCabtestcoolCab\set-event_variable_.dwl')]" />
+				</munit:variables>
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to bookCab" doc:id="26bc2e8d-b542-441e-bf46-c4c43081acfc" name="bookCab"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="e4d66b49-2e10-40d5-8f69-f635ff7f63fc" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import bookCabtestcoolCab::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+			<munit-tools:verify-call doc:name="Verify Logger" doc:id="10e06321-6d00-45a4-bdd6-ae43adafa958" processor="logger" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="5afa140b-0109-4a9a-b3da-321803b72503" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="bookCab-test-selfcab" doc:id="f5146835-a1da-4c61-b8a8-7d7a6e14f536" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock Request" doc:id="1361bfee-8e44-4184-8770-a3b2305c658b" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="2d0c5e4c-453f-4b13-9800-3e9413b090c7" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://bookCabtest\mock_payload3.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://bookCabtest\mock_attributes3.dwl')]" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://bookCabtest\mock_variable_3.dwl')]" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock Write" doc:id="5143ae21-e927-4343-8653-4654b106303a" processor="file:write">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="0b60dc7c-9b84-4dac-aee8-54501e820cf6" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://bookCabtest\mock_payload4.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://bookCabtest\mock_attributes4.dwl')]" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://bookCabtest\mock_variable_4.dwl')]" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock Is true" doc:id="9c288fb0-5bd8-42c9-8f7e-853905f8a0db" processor="validation:is-true">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="b6c94a46-aa31-4a85-808a-0329f0504dd6" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://bookCabtest\mock_payload5.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://bookCabtest\mock_attributes5.dwl')]" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://bookCabtest\mock_variable_5.dwl')]" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit:set-event doc:name="Set Input" doc:id="c8cc37a3-78e5-4319-ba5c-de9cbb3a25e1" >
+				<munit:payload value="#[output application/json --- readUrl('classpath://bookCabtest\set-event_payload1.dwl')]" encoding="UTF-8" mediaType="application/json" />
+				<munit:attributes value="#[readUrl('classpath://bookCabtest\set-event_attributes1.dwl')]" />
+				<munit:variables >
+					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://bookCabtest\set-event_variable_1.dwl')]" />
+				</munit:variables>
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to bookCab" doc:id="727d9e33-1a9e-4c34-87f5-e8c1ff9eaac0" name="bookCab"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="e618cd70-b565-4b46-ba1e-a798d82d2503" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import bookCabtest::assert_expression_payload1
+---
+assert_expression_payload1::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+			<munit-tools:verify-call doc:name="Verify Logger" doc:id="1b5366cf-5be3-4487-9aa5-6115a5822c88" processor="logger" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="5afa140b-0109-4a9a-b3da-321803b72503" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="bookCab-test-youngCab" doc:id="b5a69565-4ffe-4851-bb8c-e19a0ae85cdb" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock Request" doc:id="cce75f69-5c1f-458a-b03e-702d460dc26d" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="d98688b0-0a9c-4e47-a3b0-151799c9af44" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://bookCabtestyoungCab\mock_payload3.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://bookCabtestyoungCab\mock_attributes3.dwl')]" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://bookCabtestyoungCab\mock_variable_3.dwl')]" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock Write" doc:id="3bc157a9-a96d-47d1-907c-f8269cd9d8a4" processor="file:write">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="0b60dc7c-9b84-4dac-aee8-54501e820cf6" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://bookCabtestyoungCab\mock_payload4.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://bookCabtestyoungCab\mock_attributes4.dwl')]" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://bookCabtestyoungCab\mock_variable_4.dwl')]" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock Is true" doc:id="c11a7749-3dd6-4745-b163-3a390a6238de" processor="validation:is-true">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="b6c94a46-aa31-4a85-808a-0329f0504dd6" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://bookCabtestyoungCab\mock_payload5.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://bookCabtestyoungCab\mock_attributes5.dwl')]" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://bookCabtestyoungCab\mock_variable_5.dwl')]" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit:set-event doc:name="Set Input" doc:id="cf26ad75-9ab7-468c-8d87-6baa2c8e11c4" >
+				<munit:payload value="#[output application/json --- readUrl('classpath://bookCabtestyoungCab\set-event_payload1.dwl')]" encoding="UTF-8" mediaType="application/json" />
+				<munit:attributes value="#[readUrl('classpath://bookCabtestyoungCab\set-event_attributes1.dwl')]" />
+				<munit:variables >
+					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://bookCabtestyoungCab\set-event_variable_1.dwl')]" />
+				</munit:variables>
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to bookCab" doc:id="1bab1119-4ebc-456f-af5b-fd809c9067f1" name="bookCab"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="f3bafd56-0c05-4bc8-af05-f12746fa935c" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import bookCabtestyoungCab::assert_expression_payload1
+---
+assert_expression_payload1::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+			<munit-tools:verify-call doc:name="Verify Logger" doc:id="e1d4e67b-6918-44ce-9371-9975a7453043" processor="logger" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="5afa140b-0109-4a9a-b3da-321803b72503" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+
+
+</mule>

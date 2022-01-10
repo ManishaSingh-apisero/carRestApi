@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:email="http://www.mulesoft.org/schema/mule/email" xmlns:file="http://www.mulesoft.org/schema/mule/file"
+	xmlns:validation="http://www.mulesoft.org/schema/mule/validation"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/validation http://www.mulesoft.org/schema/mule/validation/current/mule-validation.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
+http://www.mulesoft.org/schema/mule/email http://www.mulesoft.org/schema/mule/email/current/mule-email.xsd">
+	<http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="3dbe9cea-7019-4e08-9eae-ef432f74ac1d" >
+		<http:request-connection host="anypoint.mulesoft.com" />
+	</http:request-config>
+	<file:config name="File_Config" doc:name="File Config" doc:id="40d6bac4-92a2-449d-bb01-5c078d420eaa" >
+		<file:connection workingDir="C:\car details" />
+	</file:config>
+	<email:smtp-config name="Email_SMTP" doc:name="Email SMTP" doc:id="8d380c76-48e4-4451-a3d3-9165d647bca8" >
+		<email:smtp-connection host="smtp.gmail.com" port="587" user="cabbooking.098@gmail.com" password="Cabbooking@123" >
+			<email:properties >
+				<email:property key="mail.smtp.starttls.enable" value="true" />
+			</email:properties>
+		</email:smtp-connection>
+	</email:smtp-config>
+	<flow name="getAllCabs" doc:id="3edd13b1-09c7-4664-94eb-ca063dd74c12" >
+		<scatter-gather doc:name="Scatter-Gather" doc:id="73481017-eb32-4de8-b6d8-3c461ae14fa6" >
+			<route >
+				<try doc:name="Try" doc:id="318024bc-b673-4877-924c-05923bc71657" >
+					<http:request method="GET" doc:name="Request" doc:id="d2b259db-9223-4e50-b7e8-8152d3cc8d7e" config-ref="HTTP_Request_configuration" path="/mocking/api/v1/links/2cd249ce-b558-4807-8e42-2cd4225423c9/coolcab" />
+					<error-handler >
+						<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="4a699dc5-b1d5-4b21-a706-8142a58eae7a" type="ANY">
+							<ee:transform doc:name="Transform Message" doc:id="a3c5d92d-843f-4c63-9668-659b58a58bbf" >
+								<ee:message >
+									<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+{
+}]]></ee:set-payload>
+								</ee:message>
+							</ee:transform>
+						</on-error-continue>
+					</error-handler>
+				</try>
+			</route>
+			<route >
+				<try doc:name="Try" doc:id="2dd72031-b1d9-4f64-a499-3e5c0517efe8" >
+					<http:request method="GET" doc:name="Request" doc:id="7e2bb8b9-600f-4489-b798-50a08152e1b7" config-ref="HTTP_Request_configuration" path="/mocking/api/v1/links/cfe03744-42f5-47ac-a1e2-752a34f9a574/selfcab" />
+					<error-handler >
+						<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="5ac57b0e-b83f-456b-8f4f-5365c7b77da1" type="ANY">
+							<ee:transform doc:name="Transform Message" doc:id="a4537ba8-38c6-46ca-ab88-4c98fa79421a" >
+								<ee:message >
+									<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+[]]]></ee:set-payload>
+								</ee:message>
+							</ee:transform>
+						</on-error-continue>
+					</error-handler>
+				</try>
+			</route>
+			<route >
+				<try doc:name="Try" doc:id="3444bd38-3477-43a9-a1f0-84a5c8e417e8" >
+					<http:request method="GET" doc:name="Request" doc:id="21e26c17-54c7-4543-ba49-250b2d8ec037" config-ref="HTTP_Request_configuration" path="/mocking/api/v1/links/dc797443-c8fc-4caa-ad39-872dc3d12d9f/youngcab" />
+					<error-handler >
+						<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="6b283967-3a29-466a-a1da-a0425fa734bb" type="ANY">
+							<ee:transform doc:name="Transform Message" doc:id="fa6944af-21c2-4d47-afbc-2f90b5764909" >
+								<ee:message >
+									<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+[]]]></ee:set-payload>
+								</ee:message>
+							</ee:transform>
+						</on-error-continue>
+					</error-handler>
+				</try>
+			</route>
+		</scatter-gather>
+		<ee:transform doc:name="Transform Message" doc:id="20b574ef-4d76-4f7e-a12d-ca2057341761" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+flatten(payload..payload)]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="57aab83d-87be-4b96-b68d-c05d7ec7df90" />
+	</flow>
+	<flow name="getCarByCarName" doc:id="1d24fd39-0489-4cb7-8677-0e35b742cb65" >
+		<set-variable value="#[attributes.uriParams.carName]" doc:name="carName" doc:id="652b3a5d-83e3-4aea-997e-89c7bd964a13" variableName="carName"/>
+		<set-variable value="#[attributes.queryParams.destination]" doc:name="destination" doc:id="ebece2ce-30f1-4253-92b3-e04dd0c01122" variableName="destination"/>
+		<set-variable value="#[attributes.queryParams.source]" doc:name="source" doc:id="b86e5541-d668-49d3-8432-ae68bef2c0c3" variableName="source"/>
+		<try doc:name="Try" doc:id="2a2b1c27-2046-4d04-ac8c-a411246a4c56" >
+			<validation:is-true doc:name="valid car name" doc:id="4722e78b-7651-43c3-88ac-2d694a0b555a" expression='#[["coolCab","selfCab","youngCab"] contains  vars.carName]'/>
+			<error-handler >
+				<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="5e94d19f-34a7-4816-b820-5d18eba18d74" type="VALIDATION:INVALID_BOOLEAN">
+					<ee:transform doc:name="Transform Message" doc:id="24919d56-9b63-4778-8e64-5ef93748ac22" >
+						<ee:message >
+							<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"error": "please enter a valid car name"
+}]]></ee:set-payload>
+						</ee:message>
+					</ee:transform>
+				</on-error-propagate>
+			</error-handler>
+		</try>
+		<try doc:name="Try" doc:id="2c5cb694-3216-444d-b2dc-27c9e9fdf406" >
+			<validation:is-not-null doc:name="destination is not null" doc:id="45ad254c-017c-46b2-bae8-dfdc447d7dcd" value="#[vars.destination]" />
+			<validation:is-not-null doc:name="source is not null" doc:id="293f602e-19c4-4e3d-bfa2-c4a696b1c1c1" value="#[vars.source]" />
+			<error-handler >
+				<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="c80901e7-267d-46a0-b0ee-645c2e181c4a" type="VALIDATION:NULL">
+					<ee:transform doc:name="Transform Message" doc:id="0af16c81-ebce-44a5-bf02-157c86cf15c9" >
+						<ee:message >
+							<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"error": "source and destination cannot be null"
+}]]></ee:set-payload>
+						</ee:message>
+					</ee:transform>
+				</on-error-propagate>
+			</error-handler>
+		</try>
+		<try doc:name="Try" doc:id="8537fe15-72c3-4a37-8bb3-976e2b3940e7" >
+			<validation:is-true doc:name="Is valid source" doc:id="af5cbe7e-1c5f-4d6b-94ad-cd2121d9523c" expression='#[vars.source  == "station" ]' message='#["please enter a valid source"]' />
+			<validation:is-true doc:name="Is valid destination" doc:id="c22c55ed-c8bd-46b1-b659-10e46cfc69a4" expression='#[["airport","baner","pimpri","chinchwad","kharidi"] contains  vars.destination]' message='#["please enter valid destination"]' />
+			<error-handler >
+				<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="5f5aec09-a6fc-4d18-aef1-3eb3f4e641c0" type="VALIDATION:INVALID_BOOLEAN">
+					<ee:transform doc:name="Transform Message" doc:id="c8a25ffb-1494-4f0a-a57f-5c5f879e9ba6" >
+						<ee:message >
+							<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"error": "please enter valid source and destination"
+}]]></ee:set-payload>
+						</ee:message>
+					</ee:transform>
+				</on-error-propagate>
+			</error-handler>
+		</try>
+		<choice doc:name="Choice" doc:id="3d9832b8-7b5c-4767-925c-cb4b771858bb" >
+			<when expression="#[vars.carName == 'coolCab']">
+				<http:request method="GET" doc:name="Request" doc:id="f500783a-9a8b-4b38-b853-92d814338cd7" config-ref="HTTP_Request_configuration" path="/mocking/api/v1/links/2cd249ce-b558-4807-8e42-2cd4225423c9/coolcab"/>
+				<ee:transform doc:name="Transform Message" doc:id="58a39400-0446-4c50-8978-bc8f3e4f0578" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+var sourceCheck = vars.source
+var destinationCheck = vars.destination
+---
+if(sourceCheck != null and destinationCheck != null)
+payload filter($.source == sourceCheck and $.destination == destinationCheck) map((item,index) ->
+	{
+		carName: item.carName,
+		carNumber: item.carNumber,
+		carType: item.carType,
+		carModel: item.carModel,
+		price: item.price,
+		source: item.source,
+		destination: item.destination,
+		noOfSeats: item.noOfSeats
+	}
+)
+else
+payload]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+			</when>
+			<when expression="#[vars.carName == 'selfCab']">
+				<http:request method="GET" doc:name="Request" doc:id="a858c628-b956-47ed-8e54-7b08e1183a84" path="/mocking/api/v1/links/cfe03744-42f5-47ac-a1e2-752a34f9a574/selfcab" config-ref="HTTP_Request_configuration"/>
+				<ee:transform doc:name="Transform Message" doc:id="131bd838-e5e5-4e13-875b-7b9cbc4a080e" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+var sourceCheck = vars.source
+var destinationCheck = vars.destination
+---
+if(sourceCheck != null and destinationCheck != null)
+payload filter($.source == sourceCheck and $.destination == destinationCheck) map((item,index) ->
+	{
+		carName: item.carName,
+		carNumber: item.carNumber,
+		carType: item.carType,
+		carModel: item.carModel,
+		price: item.price,
+		source: item.source,
+		destination: item.destination,
+		noOfSeats: item.noOfSeats
+	}
+)
+else
+payload]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+			</when>
+			<when expression="#[vars.carName == 'youngCab']">
+				<http:request method="GET" doc:name="Request" doc:id="69727309-490b-483b-98f8-cd880da751ac" config-ref="HTTP_Request_configuration" path="/mocking/api/v1/links/dc797443-c8fc-4caa-ad39-872dc3d12d9f/youngcab"/>
+				<ee:transform doc:name="Transform Message" doc:id="6cd088e7-0031-4b10-a1bb-aaa0c4b1fb7f" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+var sourceCheck = vars.source
+var destinationCheck = vars.destination
+---
+if(sourceCheck != null and destinationCheck != null)
+payload filter($.source == sourceCheck and $.destination == destinationCheck) map((item,index) ->
+	{
+		carName: item.carName,
+		carNumber: item.carNumber,
+		carType: item.carType,
+		carModel: item.carModel,
+		price: item.price,
+		source: item.source,
+		destination: item.destination,
+		noOfSeats: item.noOfSeats
+	}
+)
+else
+payload]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+			</when>
+			<otherwise >
+				<flow-ref doc:name="Flow Reference" doc:id="ac0160aa-7c3b-41b8-8faa-60ea050c22d6" name="getAllCabs"/>
+			</otherwise>
+		</choice>
+		<ee:transform doc:name="Transform Message" doc:id="b833b4e7-97ea-4b83-8474-6a2ce775b4ee" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="dc3e87cf-8d14-4743-91f7-1b8faf83e146" message="#[payload]"/>
+		<error-handler>
+			<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="96f7dfc8-31f4-4a15-af54-83be13eaba20" type="HTTP:BAD_GATEWAY, HTTP:BAD_REQUEST, HTTP:CONNECTIVITY, HTTP:METHOD_NOT_ALLOWED">
+				<ee:transform doc:name="Transform Message" doc:id="506bfec1-e81e-46ce-bba5-5011ea5591c0" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+{
+	"error": "bad request"
+}]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+			</on-error-continue>
+		</error-handler>
+	</flow>
+	<flow name="bookCab" doc:id="3f2eb3a2-e1ac-4334-94c4-16bd07455de5" >
+		<validation:is-true doc:name="Is true" doc:id="b6c94a46-aa31-4a85-808a-0329f0504dd6" expression='#[payload.carName == "cool cab" or payload.carName == "self cab" or payload.carName == "young cab"]'/>
+		<choice doc:name="Choice" doc:id="83847a08-188e-4a2c-9076-01b78bfa9fd6" >
+			<when expression='#[payload.carName == "cool cab"]'>
+				<http:request method="POST" doc:name="Request" doc:id="21d8dacb-6c7d-48bc-b216-3f05b2058110" config-ref="HTTP_Request_configuration" path="/mocking/api/v1/links/2cd249ce-b558-4807-8e42-2cd4225423c9/coolcab"/>
+			</when>
+			<when expression='#[payload.carName == "self cab"]'>
+				<http:request method="POST" doc:name="Request" doc:id="2d0c5e4c-453f-4b13-9800-3e9413b090c7" config-ref="HTTP_Request_configuration" path="/mocking/api/v1/links/cfe03744-42f5-47ac-a1e2-752a34f9a574/selfcab"/>
+			</when>
+			<otherwise >
+				<http:request method="POST" doc:name="Request" doc:id="d98688b0-0a9c-4e47-a3b0-151799c9af44" config-ref="HTTP_Request_configuration" path="/mocking/api/v1/links/dc797443-c8fc-4caa-ad39-872dc3d12d9f/youngcab"/>
+			</otherwise>
+		</choice>
+		<logger level="INFO" doc:name="Logger" doc:id="5afa140b-0109-4a9a-b3da-321803b72503" />
+		<file:write doc:name="Write" doc:id="0b60dc7c-9b84-4dac-aee8-54501e820cf6" path="C:\car details\cab.json" mode="APPEND" config-ref="File_Config"/>
+		<error-handler >
+			<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="be684379-7e21-4618-9e55-d35c0919838e" type="VALIDATION:INVALID_BOOLEAN">
+				<ee:transform doc:name="Transform Message" doc:id="3e9661e0-6f15-43ea-806f-bbd1a2c4336a" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+"error": "enter valid car name"
+}
+]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+				<logger level="INFO" doc:name="Logger" doc:id="bdc36e84-313e-417a-b720-55e3041ca226" />
+			</on-error-propagate>
+		</error-handler>
+	</flow>
+	<flow name="SchedulerToSendEmailEveryHour" doc:id="f6059395-e91b-4983-84e9-e4a056abcb0d">
+		<scheduler doc:name="Scheduler" doc:id="da884bca-e4ef-4c33-b3fb-0d709ae6c5f3" >
+			<scheduling-strategy >
+				<fixed-frequency frequency="60" timeUnit="MINUTES"/>
+			</scheduling-strategy>
+		</scheduler>
+		<file:read doc:name="Read" doc:id="dc4e2edd-5af1-4568-a112-c344bc2b2ed5" path="C:\car details\cab.json" config-ref="File_Config"/>
+		<logger level="INFO" doc:name="Logger" doc:id="456b153a-2320-496c-8649-6f03050c9fae" message="#[payload]"/>
+		<email:send doc:name="Send" doc:id="b671fbbb-7956-4e11-8e3f-c0b77e3fc439" config-ref="Email_SMTP" fromAddress="cabbooking.098@gmail.com" subject='#["Last one hour booking details"]'>
+			<email:to-addresses >
+				<email:to-address value='#["manisha.k.singh@apisero.com"]' />
+			</email:to-addresses>
+			<email:body contentType="text/json" encoding="UTF-8" />
+			<email:attachments ><![CDATA[#["cab.json" : payload]]]></email:attachments>
+		</email:send>
+		<logger level="INFO" doc:name="Logger" doc:id="fdc06849-9073-4fce-b339-1bb226bc30f0" />
+	</flow>
+	
+</mule>
