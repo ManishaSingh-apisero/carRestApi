@@ -1,0 +1,14 @@
+%dw 2.0
+
+type auto_1d24fd39_0489_4cb7_8677_0e35b742cb65_Output_Payload = {
+  carNumber: String, 
+  carType: String, 
+  noOfSeats: Number, 
+  carName: String, 
+  price: Number, 
+  destination: String, 
+  source: String, 
+  carModel: String, 
+  _?: Any
+}
+
